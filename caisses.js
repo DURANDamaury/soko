@@ -1,4 +1,8 @@
-function placeCaisses (largeurTile,hauteurTile,table)
+import { largeurTile } from "./data.js";
+import { hauteurTile } from "./data.js";
+import { table } from "./data.js";
+
+function placeCaisses ()
     {
         const nbrCaisses = table.nbCaisses;
         for (let n=0 ; n<nbrCaisses; n++)

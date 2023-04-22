@@ -1,4 +1,9 @@
-function placePerso(largeurTile,hauteurTile,table)
+import { largeurTile } from "./data.js";
+import { hauteurTile } from "./data.js";
+import { table } from "./data.js";
+import { player } from "./player.js";
+
+function placePerso()
     {
         const imagePerso = 
             [
@@ -7,29 +12,30 @@ function placePerso(largeurTile,hauteurTile,table)
                 {direction:'g' , image:'./gfxs/perso/g.png'},
                 {direction:'d' , image:'./gfxs/perso/d.png'}
             ]
-        const xPerso = table.xyPerso[0];
-        const yPerso = table.xyPerso[1];
-        const directionPerso = table.directionPerso;
+
+        const directionPerso = player.directionPerso;
         const adresseImagePersoInit = imagePerso.find(element => element.direction === directionPerso).image;
         const imagePersoSet = document.createElement('img');
+
+
         imagePersoSet.setAttribute('class','perso');
         imagePersoSet.setAttribute('src',adresseImagePersoInit);
-        const xPersoScreen = xPerso*largeurTile;
-        const yPersoScreen = yPerso*hauteurTile;
-        imagePersoSet.style.top = xPersoScreen + 'px';
-        imagePersoSet.style.left = yPersoScreen + 'px';
+        const xPersoScreen = player.x*largeurTile;
+        const yPersoScreen = player.y*hauteurTile;
+        imagePersoSet.style.top = yPersoScreen + 'px';
+        imagePersoSet.style.left = xPersoScreen + 'px';
         const game = document.getElementById('game');
         game.appendChild(imagePersoSet);
 
     }
 
-function movePerso(up,down,left,right)
+function movePerso()
     {
-        console.log(up,down,left,right)
-        if (up) {console.log('up')}
-        else if (down){console.log('down')}
-        else if (left){console.log('left')}
-        else if (right){console.log('right')}
+        console.log(player.up,player.down,player.left,player.right)
+        if (player.up) {console.log('up')}
+        else if (player.down){console.log('down')}
+        else if (player.left){console.log('left')}
+        else if (player.right){console.log('right')}
     }
 
 export {placePerso,movePerso}

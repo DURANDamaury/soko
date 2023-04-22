@@ -1,3 +1,4 @@
+import { table } from "./data.js";
 
 //trouve l'image à partir du numéro de tile et retourne le chemin
 function getTileImage(tileNumber)
@@ -14,7 +15,7 @@ function getTileImage(tileNumber)
     }
 
 
-function generateTileScreen(table)
+function generateTileScreen()
     {
         const largeur = table.largeur;
         const hauteur = table.hauteur;
