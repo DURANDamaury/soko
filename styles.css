@@ -1,0 +1,23 @@
+#game
+    {
+        width: fit-content;
+        height: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+.ligne
+    {
+        height: 64px
+    }
+
+.caisse
+    {
+        position: absolute;
+    }
+
+.perso
+    {
+        position: absolute
+    }
