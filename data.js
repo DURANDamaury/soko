@@ -21,8 +21,6 @@ export const table =
         nbCaisses: 2,
         //attention les coordonnées de chaque caisse commencent en 0.
         xCaisses: [2,4],
-        yCaisses: [3,6],
-        xyPerso: [3,3],
-        directionPerso: "b"
+        yCaisses: [3,6]
     }
 
