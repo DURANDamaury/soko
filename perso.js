@@ -2,23 +2,18 @@ import { largeurTile } from "./data.js";
 import { hauteurTile } from "./data.js";
 import { table } from "./data.js";
 import { player } from "./player.js";
+import { imagePerso } from "./player.js";
 
 function placePerso()
     {
-        const imagePerso = 
-            [
-                {direction:'h' , image:'./gfxs/perso/h.png'},
-                {direction:'b' , image:'./gfxs/perso/b.png'},
-                {direction:'g' , image:'./gfxs/perso/g.png'},
-                {direction:'d' , image:'./gfxs/perso/d.png'}
-            ]
+        
 
-        const directionPerso = player.directionPerso;
-        const adresseImagePersoInit = imagePerso.find(element => element.direction === directionPerso).image;
+        const direction = player.direction;
+        const adresseImagePersoInit = imagePerso.find(element => element.direction === direction).image;
         const imagePersoSet = document.createElement('img');
 
 
-        imagePersoSet.setAttribute('class','perso');
+        imagePersoSet.setAttribute('id','perso');
         imagePersoSet.setAttribute('src',adresseImagePersoInit);
         const xPersoScreen = player.x*largeurTile;
         const yPersoScreen = player.y*hauteurTile;
@@ -29,13 +24,84 @@ function placePerso()
 
     }
 
-function movePerso()
+function modifyPerso()
     {
-        console.log(player.up,player.down,player.left,player.right)
-        if (player.up) {console.log('up')}
-        else if (player.down){console.log('down')}
-        else if (player.left){console.log('left')}
-        else if (player.right){console.log('right')}
+        const direction = player.direction;
+        const adresseImagePersoInit = imagePerso.find(element => element.direction === direction).image;
+        //on modifie l'adresse de l'image
+        const perso = document.getElementById('perso')
+        perso.setAttribute('src',adresseImagePersoInit);
+
+        const xPersoScreen = player.x*largeurTile;
+        const yPersoScreen = player.y*hauteurTile;
+        perso.style.top = yPersoScreen + 'px';
+        perso.style.left = xPersoScreen + 'px';
     }
 
-export {placePerso,movePerso}
+
+function moveRight()
+    { 
+        player.direction = 'd'
+        modifyPerso()
+        let xperso = player.x * largeurTile;
+        const xpersoDestination = xperso+largeurTile
+        const perso = document.getElementById('perso')
+        let xpos=0
+        function movePersoRight()
+            {
+                perso.style.transform = "translateX(" + xpos + "px)"
+                xpos++
+                requestAnimationFrame(movePersoRight)
+                if (xperso + xpos === xpersoDestination)
+                    {
+                        console.log('debordement')
+                        return
+                    }
+            }
+        movePersoRight()
+        player.x++
+
+    }
+
+function moveLeft()
+    {
+        player.direction = 'g'
+        modifyPerso()
+        let xperso = player.x * largeurTile;
+        const xpersoDestination = xperso-largeurTile
+        const perso = document.getElementById('perso')
+        for (let i = xperso ; i > xpersoDestination-1 ; i--)           
+            {
+                perso.style.left = i + 'px'
+            }
+        player.x--
+    }
+
+function moveUp()
+    {
+        player.direction = 'h'
+        modifyPerso()
+        let yperso = player.y * hauteurTile;
+        const ypersoDestination = yperso-hauteurTile
+        const perso = document.getElementById('perso')
+        for (let i = yperso ; i > ypersoDestination-1 ; i--)           
+            {
+                perso.style.top = i + 'px'
+            }
+        player.y--
+    }
+
+function moveDown()
+    {
+        player.direction = 'b'
+        modifyPerso()
+        let yperso = player.y * hauteurTile;
+        const ypersoDestination = yperso+hauteurTile
+        const perso = document.getElementById('perso')
+        for (let i = yperso ; i < ypersoDestination+1 ; i++)           
+            {
+                perso.style.top = i + 'px'
+            }
+        player.y++
+    }
+export {placePerso,moveLeft,moveRight,moveUp,moveDown}

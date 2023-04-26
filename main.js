@@ -1,4 +1,4 @@
-import { movePerso } from "./perso.js";
+import { moveLeft, moveRight, moveUp, moveDown } from "./perso.js";
 import { largeurTile } from "./data.js";
 import { hauteurTile } from "./data.js";
 import { table } from "./data.js";
@@ -8,10 +8,10 @@ function main ()
     {
         function keyDownHandler(e) 
             {
-                if(e.key == "Right" || e.key == "ArrowRight"){player.right = true;}
-                else if(e.key == "Left" || e.key == "ArrowLeft"){player.left = true;}
-                else if(e.key == "Up" || e.key == "ArrowUp"){player.up = true;}
-                else if(e.key == "Down" || e.key == "ArrowDown"){player.down = true;}
+                if(e.key == "Right" || e.key == "ArrowRight"){moveRight()}
+                else if(e.key == "Left" || e.key == "ArrowLeft"){moveLeft()}
+                else if(e.key == "Up" || e.key == "ArrowUp"){moveUp()}
+                else if(e.key == "Down" || e.key == "ArrowDown"){moveDown()}
             }
         
         function keyUpHandler(e) 
@@ -23,9 +23,9 @@ function main ()
             }
 
         document.addEventListener("keydown", keyDownHandler, false);
+        //document.addEventListener("keyup", keyUpHandler, false);
 
-        document.addEventListener("keyup", keyUpHandler, false);
-        setInterval( movePerso() , 10);
+        
     }
 
 export {main}
