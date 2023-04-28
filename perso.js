@@ -4,6 +4,25 @@ import { table } from "./data.js";
 import { player } from "./player.js";
 import { imagePerso } from "./player.js";
 
+const vitesse = 2;
+
+function logxy()
+    {
+        console.log("x="+player.x+" y="+player.y)
+    }
+
+// **********************************************************
+// ***                  TESTS COLLISION                   ***
+// **********************************************************
+function testLeft (x,y)
+    {
+        const pointeurLigne = y * table.largeur;
+        const pointeurTile = pointeurLigne + x;
+        const valeurTile = table.map[pointeurTile];
+        return valeurTile;
+    }
+// **********************************************************
+
 function placePerso()
     {
         
@@ -41,67 +60,147 @@ function modifyPerso()
 
 function moveRight()
     { 
-        player.direction = 'd'
-        modifyPerso()
-        let xperso = player.x * largeurTile;
-        const xpersoDestination = xperso+largeurTile
-        const perso = document.getElementById('perso')
-        let xpos=0
-        function movePersoRight()
-            {
-                perso.style.transform = "translateX(" + xpos + "px)"
-                xpos++
-                requestAnimationFrame(movePersoRight)
-                if (xperso + xpos === xpersoDestination)
-                    {
-                        console.log('debordement')
-                        return
-                    }
-            }
-        movePersoRight()
-        player.x++
+        player.direction = 'd';
+        modifyPerso();
 
+        const x = player.x+1;
+        const y = player.y;
+        const valeurTile = testLeft(x,y)
+        if (valeurTile != 1)
+            {
+                let xperso = player.x * largeurTile;
+                const xpersoDestination = xperso+largeurTile;
+                const perso = document.getElementById('perso');
+                let xpos=0;
+                let animation = true;
+                function movePersoRight()
+                    {
+                        if (animation)
+                            {
+                                perso.style.transform = "translateX(" + xpos + "px)"
+                                xpos=xpos+vitesse
+                                requestAnimationFrame(movePersoRight)
+                            }
+                        if (xperso + xpos > xpersoDestination)
+                            {
+                                animation = false;
+                            }
+                    }
+                movePersoRight()
+                player.x++;
+                logxy()
+            }
+        else { return }
     }
 
 function moveLeft()
     {
         player.direction = 'g'
         modifyPerso()
-        let xperso = player.x * largeurTile;
-        const xpersoDestination = xperso-largeurTile
-        const perso = document.getElementById('perso')
-        for (let i = xperso ; i > xpersoDestination-1 ; i--)           
+
+        const x = player.x-1;
+        const y = player.y;
+        const valeurTile = testLeft(x,y)
+        if (valeurTile != 1)
             {
-                perso.style.left = i + 'px'
+                let xperso = player.x * largeurTile;
+                const xpersoDestination = xperso-largeurTile
+                const perso = document.getElementById('perso')
+                let xpos=0;
+                let animation = true;
+                function movePersoLeft()
+                    {
+                        if (animation)
+                            {
+                                perso.style.transform = "translateX(" + xpos + "px)"
+                                xpos=xpos-vitesse
+                                requestAnimationFrame(movePersoLeft)
+                            }
+                        
+                        if (xperso + xpos < xpersoDestination)
+                            {
+                                animation = false;
+                            }
+                    }
+                movePersoLeft()       
+                player.x--;
+                logxy()
             }
-        player.x--
+        else { return }
     }
 
 function moveUp()
     {
         player.direction = 'h'
         modifyPerso()
-        let yperso = player.y * hauteurTile;
-        const ypersoDestination = yperso-hauteurTile
-        const perso = document.getElementById('perso')
-        for (let i = yperso ; i > ypersoDestination-1 ; i--)           
+
+        const x = player.x;
+        const y = player.y-1;
+        const valeurTile = testLeft(x,y)
+        //si c'est un mur(1) on ne fait rien
+        if (valeurTile != 1)
             {
-                perso.style.top = i + 'px'
+                let yperso = player.y * hauteurTile;
+                const ypersoDestination = yperso-hauteurTile
+                const perso = document.getElementById('perso')
+                let ypos=0;
+                let animation = true;
+                function movePersoUp()
+                    {
+                        if (animation)
+                            {
+                                perso.style.transform = "translateY(" + ypos + "px)"
+                                ypos=ypos-vitesse
+                                requestAnimationFrame(movePersoUp)
+                            }
+                        
+                        if (yperso + ypos < ypersoDestination)
+                            {
+                                animation = false;
+                            }
+                    }
+                movePersoUp()     
+                player.y--
+                logxy()
             }
-        player.y--
+        else { return }
     }
 
 function moveDown()
     {
         player.direction = 'b'
         modifyPerso()
-        let yperso = player.y * hauteurTile;
-        const ypersoDestination = yperso+hauteurTile
-        const perso = document.getElementById('perso')
-        for (let i = yperso ; i < ypersoDestination+1 ; i++)           
-            {
-                perso.style.top = i + 'px'
+
+        const x = player.x;
+        const y = player.y+1;
+        const valeurTile = testLeft(x,y)
+        //si c'est un mur(1) on ne fait rien
+        if (valeurTile != 1)
+            {           
+                let yperso = player.y * hauteurTile;
+                const ypersoDestination = yperso+hauteurTile
+                const perso = document.getElementById('perso')
+                let ypos=0;
+                let animation = true;
+                function movePersoDown()
+                    {
+                        if (animation)
+                            {
+                                perso.style.transform = "translateY(" + ypos + "px)"
+                                ypos=ypos+vitesse
+                                requestAnimationFrame(movePersoDown)
+                            }
+                        
+                        if (yperso + ypos > ypersoDestination)
+                            {
+                                animation = false;
+                            }
+                    }
+                movePersoDown()  
+
+                player.y++
+                logxy()
             }
-        player.y++
+        else { return }
     }
 export {placePerso,moveLeft,moveRight,moveUp,moveDown}
