@@ -6,7 +6,7 @@ export let player =
         up : false,
         down : false,
         left : false,
-        right : false
+        right : false,
     }
 
 export const imagePerso = 

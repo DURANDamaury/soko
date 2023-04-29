@@ -49,12 +49,13 @@ function modifyPerso()
         const adresseImagePersoInit = imagePerso.find(element => element.direction === direction).image;
         //on modifie l'adresse de l'image
         const perso = document.getElementById('perso')
+        
         perso.setAttribute('src',adresseImagePersoInit);
 
         const xPersoScreen = player.x*largeurTile;
         const yPersoScreen = player.y*hauteurTile;
-        perso.style.top = yPersoScreen + 'px';
-        perso.style.left = xPersoScreen + 'px';
+        //perso.style.top = yPersoScreen + 'px';
+        //perso.style.left = xPersoScreen + 'px';
     }
 
 
@@ -84,10 +85,13 @@ function moveRight()
                         if (xperso + xpos > xpersoDestination)
                             {
                                 animation = false;
+                                perso.style.left = xpersoDestination + 'px';
+                                perso.style.transform = ''
                             }
                     }
                 movePersoRight()
                 player.x++;
+                player.moving = false;
                 logxy()
             }
         else { return }
@@ -120,6 +124,8 @@ function moveLeft()
                         if (xperso + xpos < xpersoDestination)
                             {
                                 animation = false;
+                                perso.style.left = xpersoDestination + 'px';
+                                perso.style.transform = ''
                             }
                     }
                 movePersoLeft()       
@@ -157,6 +163,8 @@ function moveUp()
                         if (yperso + ypos < ypersoDestination)
                             {
                                 animation = false;
+                                perso.style.top = ypersoDestination + 'px';
+                                perso.style.transform = ''
                             }
                     }
                 movePersoUp()     
@@ -194,6 +202,8 @@ function moveDown()
                         if (yperso + ypos > ypersoDestination)
                             {
                                 animation = false;
+                                perso.style.top = ypersoDestination + 'px';
+                                perso.style.transform = ''
                             }
                     }
                 movePersoDown()  
