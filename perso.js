@@ -62,7 +62,6 @@ function modifyPerso()
 function moveRight()
     { 
         if (player.moving)return;
-        player.moving = true;
         player.direction = 'd';
         modifyPerso();
 
@@ -71,6 +70,7 @@ function moveRight()
         const valeurTile = testLeft(x,y)
         if (valeurTile != 1)
             {
+                player.moving = true;
                 let xperso = player.x * largeurTile;
                 const xpersoDestination = xperso+largeurTile;
                 const perso = document.getElementById('perso');
@@ -94,13 +94,11 @@ function moveRight()
                 player.x++;
                 logxy()
             }
-        else return
     }
 
 function moveLeft()
     {
         if (player.moving)return;
-        player.moving = true;
         player.direction = 'g'
         modifyPerso()
 
@@ -109,6 +107,7 @@ function moveLeft()
         const valeurTile = testLeft(x,y)
         if (valeurTile != 1)
             {
+                player.moving = true;
                 let xperso = player.x * largeurTile;
                 const xpersoDestination = xperso-largeurTile
                 const perso = document.getElementById('perso')
@@ -133,13 +132,11 @@ function moveLeft()
                 player.x--;
                 logxy()
             }
-        else { return }
     }
 
 function moveUp()
     {
         if (player.moving)return;
-        player.moving = true;
         player.direction = 'h'
         modifyPerso()
 
@@ -149,6 +146,7 @@ function moveUp()
         //si c'est un mur(1) on ne fait rien
         if (valeurTile != 1)
             {
+                player.moving = true;
                 let yperso = player.y * hauteurTile;
                 const ypersoDestination = yperso-hauteurTile
                 const perso = document.getElementById('perso')
@@ -173,13 +171,11 @@ function moveUp()
                 player.y--
                 logxy()
             }
-        else { return }
     }
 
 function moveDown()
     {
         if (player.moving)return;
-        player.moving = true;
         player.direction = 'b'
         modifyPerso()
 
@@ -188,7 +184,8 @@ function moveDown()
         const valeurTile = testLeft(x,y)
         //si c'est un mur(1) on ne fait rien
         if (valeurTile != 1)
-            {           
+            {     
+                player.moving = true;      
                 let yperso = player.y * hauteurTile;
                 const ypersoDestination = yperso+hauteurTile
                 const perso = document.getElementById('perso')
@@ -214,6 +211,5 @@ function moveDown()
                 player.y++
                 logxy()
             }
-        else { return }
     }
 export {placePerso,moveLeft,moveRight,moveUp,moveDown}

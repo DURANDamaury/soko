@@ -10,7 +10,6 @@ function init ()
         generateTileScreen(table);
         placeCaisses(largeurTile,hauteurTile,table);
         placePerso(largeurTile,hauteurTile,table);
-        return
     }
 
 export {init}
