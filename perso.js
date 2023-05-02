@@ -61,6 +61,8 @@ function modifyPerso()
 
 function moveRight()
     { 
+        if (player.moving)return;
+        player.moving = true;
         player.direction = 'd';
         modifyPerso();
 
@@ -73,10 +75,9 @@ function moveRight()
                 const xpersoDestination = xperso+largeurTile;
                 const perso = document.getElementById('perso');
                 let xpos=0;
-                let animation = true;
                 function movePersoRight()
                     {
-                        if (animation)
+                        if (player.moving)
                             {
                                 perso.style.transform = "translateX(" + xpos + "px)"
                                 xpos=xpos+vitesse
@@ -84,21 +85,22 @@ function moveRight()
                             }
                         if (xperso + xpos > xpersoDestination)
                             {
-                                animation = false;
                                 perso.style.left = xpersoDestination + 'px';
-                                perso.style.transform = ''
+                                perso.style.transform = '';
+                                player.moving = false;
                             }
                     }
                 movePersoRight()
                 player.x++;
-                player.moving = false;
                 logxy()
             }
-        else { return }
+        else return
     }
 
 function moveLeft()
     {
+        if (player.moving)return;
+        player.moving = true;
         player.direction = 'g'
         modifyPerso()
 
@@ -111,10 +113,9 @@ function moveLeft()
                 const xpersoDestination = xperso-largeurTile
                 const perso = document.getElementById('perso')
                 let xpos=0;
-                let animation = true;
                 function movePersoLeft()
                     {
-                        if (animation)
+                        if (player.moving)
                             {
                                 perso.style.transform = "translateX(" + xpos + "px)"
                                 xpos=xpos-vitesse
@@ -123,7 +124,7 @@ function moveLeft()
                         
                         if (xperso + xpos < xpersoDestination)
                             {
-                                animation = false;
+                                player.moving = false;
                                 perso.style.left = xpersoDestination + 'px';
                                 perso.style.transform = ''
                             }
@@ -137,6 +138,8 @@ function moveLeft()
 
 function moveUp()
     {
+        if (player.moving)return;
+        player.moving = true;
         player.direction = 'h'
         modifyPerso()
 
@@ -150,10 +153,9 @@ function moveUp()
                 const ypersoDestination = yperso-hauteurTile
                 const perso = document.getElementById('perso')
                 let ypos=0;
-                let animation = true;
                 function movePersoUp()
                     {
-                        if (animation)
+                        if (player.moving)
                             {
                                 perso.style.transform = "translateY(" + ypos + "px)"
                                 ypos=ypos-vitesse
@@ -162,7 +164,7 @@ function moveUp()
                         
                         if (yperso + ypos < ypersoDestination)
                             {
-                                animation = false;
+                                player.moving = false;
                                 perso.style.top = ypersoDestination + 'px';
                                 perso.style.transform = ''
                             }
@@ -176,6 +178,8 @@ function moveUp()
 
 function moveDown()
     {
+        if (player.moving)return;
+        player.moving = true;
         player.direction = 'b'
         modifyPerso()
 
@@ -189,10 +193,9 @@ function moveDown()
                 const ypersoDestination = yperso+hauteurTile
                 const perso = document.getElementById('perso')
                 let ypos=0;
-                let animation = true;
                 function movePersoDown()
                     {
-                        if (animation)
+                        if (player.moving)
                             {
                                 perso.style.transform = "translateY(" + ypos + "px)"
                                 ypos=ypos+vitesse
@@ -201,7 +204,7 @@ function moveDown()
                         
                         if (yperso + ypos > ypersoDestination)
                             {
-                                animation = false;
+                                player.moving = false;
                                 perso.style.top = ypersoDestination + 'px';
                                 perso.style.transform = ''
                             }
